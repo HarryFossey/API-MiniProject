@@ -10,4 +10,5 @@ public interface ICustomerService
     public Task RemoveCustomerAsync(Customer customer);
     public Task<List<Order>> GetOrdersByCustomerIdAsync(string id);
     public Task SaveCustomerChangesAsync();
+    public Task AddOrdersAsync(IEnumerable<Order> orders);
 }

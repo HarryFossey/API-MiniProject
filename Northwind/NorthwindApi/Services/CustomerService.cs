@@ -48,4 +48,9 @@ public class CustomerService : ICustomerService
     {
         await _context.SaveChangesAsync();
     }
+    public async Task AddOrdersAsync(IEnumerable<Order> orders)
+    {
+        await _context.Orders.AddRangeAsync();
+        await _context.SaveChangesAsync();
+    }
 }
