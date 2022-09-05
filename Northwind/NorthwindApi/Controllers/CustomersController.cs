@@ -53,6 +53,8 @@ namespace NorthwindApi.Controllers
 
             var customerById = await _service.GetCustomerByIdAsync(id);
 
+            if (customerById is null) return NotFound();
+
             customerById.CompanyName = customer.CompanyName ?? customerById.CompanyName;
             customerById.ContactName = customer.ContactName ?? customerById.ContactName;
             customerById.ContactTitle = customer.ContactTitle ?? customerById.ContactTitle;
@@ -64,16 +66,8 @@ namespace NorthwindApi.Controllers
             customerById.Phone = customer.Phone ?? customerById.Phone;
             customerById.Fax = customer.Fax ?? customerById.Fax;
 
-            try
-            {
-                await _service.SaveCustomerChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CustomerExistsAsync(id).Result) return NotFound();
-                else throw;
-            }
-            
+            await _service.SaveCustomerChangesAsync();
+
             return NoContent();
         }
 
@@ -128,6 +122,5 @@ namespace NorthwindApi.Controllers
         {
             return await _service.GetCustomerByIdAsync(id) is null ? false : true;
         }
-        
     }
 }
