@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace NorthwindTests;
 
-public class CustomerServiceShouldDelete
+public partial class CustomerServiceShould
 {
+    
 }
