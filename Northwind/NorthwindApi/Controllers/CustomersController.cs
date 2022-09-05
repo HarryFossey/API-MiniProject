@@ -15,16 +15,9 @@ namespace NorthwindApi.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly CustomerService _service;
+        private readonly ICustomerService _service;
 
-        private readonly NorthwindContext _context;
-
-        public CustomersController()
-        {
-            _service = new CustomerService();
-        }
-
-        public CustomersController(CustomerService service)
+        public CustomersController(ICustomerService service)
         {
             _service = service;
         }
@@ -58,16 +51,18 @@ namespace NorthwindApi.Controllers
         {
             if (id != customer.CustomerId) return BadRequest();
 
-            var customerById = _service.GetCustomerByIdAsync(id);
+            var customerById = await _service.GetCustomerByIdAsync(id);
 
-            /*
-            //Null-coalescing oeprator returns the value of it's left hand 
-            //operand if it isn't null.
-            supplier.CompanyName = supplierDto.CompanyName ?? supplier.CompanyName;
-            supplier.ContactName = supplierDto.ContactName ?? supplier.ContactName;
-            supplier.ContactTitle = supplierDto.ContactTitle ?? supplier.ContactTitle;
-            supplier.Country = supplierDto.Country ?? supplier.Country;
-            */
+            customerById.CompanyName = customer.CompanyName ?? customerById.CompanyName;
+            customerById.ContactName = customer.ContactName ?? customerById.ContactName;
+            customerById.ContactTitle = customer.ContactTitle ?? customerById.ContactTitle;
+            customerById.Address = customer.Address ?? customerById.Address;
+            customerById.City = customer.City ?? customerById.City;
+            customerById.Region = customer.Region ?? customerById.Region;
+            customerById.PostalCode = customer.PostalCode ?? customerById.PostalCode;
+            customerById.Country = customer.Country ?? customerById.Country;
+            customerById.Phone = customer.Phone ?? customerById.Phone;
+            customerById.Fax = customer.Fax ?? customerById.Fax;
 
             try
             {
@@ -75,24 +70,20 @@ namespace NorthwindApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                if (!CustomerExistsAsync(id).Result) return NotFound();
+                else throw;
             }
-
+            
             return NoContent();
         }
 
+        /*
         // POST: api/Customers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
+            
             if (_context.Customers == null)
             {
                 return Problem("Entity set 'NorthwindContext.Customers'  is null.");
@@ -115,51 +106,28 @@ namespace NorthwindApi.Controllers
             }
 
             return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            
         }
+        */
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(string id)
         {
-            /*
-            var customer = await _service.GetCustomerById(id); // TODO make async
-            if (customer == null)
-            {
-                return NotFound();
-            }
+            var customer = await _service.GetCustomerByIdAsync(id);
+            if (customer == null) return NotFound();
+
             var customerOrders = await _service.GetOrdersByCustomerIdAsync(id);
-            foreach (var order in customerOrders)
-            {
-                order.Customer = null;
-            }
+            foreach (var order in customerOrders) order.Customer = null;
 
-            await _service.RemoveCustomer(customer);
-            return NoContent();
-
-            /*
-            // ----------------------------------------------
-            if (_context.Customers == null)
-            {
-                return NotFound();
-            }
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-            */
-
+            await _service.RemoveCustomerAsync(customer);
             return NoContent();
         }
-
-        private bool CustomerExists(string id)
+        
+        private async Task<bool> CustomerExistsAsync(string id)
         {
-            return (_context.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
+            return await _service.GetCustomerByIdAsync(id) is null ? false : true;
         }
+        
     }
 }
