@@ -11,7 +11,7 @@ using NorthwindApi.Services;
 
 namespace NorthwindTests;
 
-public class CustomerControllerShouldPut
+public class CustomerControllerShould
 {
     private CustomersController? _sut;
     private Mock<ICustomerService> mockService;
@@ -85,4 +85,35 @@ public class CustomerControllerShouldPut
         Assert.That(result, Is.InstanceOf<BadRequestResult>());
     }
 
+    [Category("Happy Path")]
+    [Test]
+    public void VerifyThat_SaveCustomerChangesAsync_IsCalledWithValidCustomer()
+    {
+        var mockService = new Mock<ICustomerService>();
+        mockService.Setup(ms => ms.GetCustomerByIdAsync(It.IsAny<string>())).ReturnsAsync(new Customer());
+        _sut = new CustomersController(mockService.Object);
+        _sut.PostCustomer(new Customer());
+        mockService.Verify(ms => ms.SaveCustomerChangesAsync(), Times.Once);
+    }
+
+    [Category("Sad Path")]
+    [Test]
+    public void VerifyThat_CreateCustomerAsync_IsNotCalledWithInvalidCustomer()
+    {
+        var mockService = new Mock<ICustomerService>();
+        mockService.Setup(ms => ms.GetCustomerByIdAsync(It.IsAny<string>())).ReturnsAsync((Customer)null);
+        _sut = new CustomersController(mockService.Object);
+        _sut.PostCustomer(new Customer());
+        mockService.Verify(ms => ms.CreateCustomerAsync(new Customer()), Times.Never);
+    }
+
+    [Category("Happy Path")]
+    [Test]
+    public void ReturnATaskActionResultListCustomer_WhenGetCustomersIsCalled()
+    {
+        var mockService = new Mock<ICustomerService>();
+        _sut = new CustomersController(mockService.Object);
+        var result = _sut.GetCustomers();
+        Assert.That(result, Is.InstanceOf<Task<ActionResult<IEnumerable<Customer>>>>());
+    }
 }
