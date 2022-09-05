@@ -77,25 +77,48 @@ namespace NorthwindApi.Controllers
             return NoContent();
         }
 
-        /*
+        
         // POST: api/Customers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
         {
-            
-            if (_context.Customers == null)
+            List<Order> orders = new List<Order>();
+            customer.Orders.ToList().ForEach(o => orders.Add(new Order
             {
-                return Problem("Entity set 'NorthwindContext.Customers'  is null.");
-            }
-            _context.Customers.Add(customer);
+                Freight = o.Freight,
+                OrderDate = o.OrderDate,
+                RequiredDate = o.RequiredDate,
+                ShipAddress = o.ShipAddress,
+                ShipCity = o.ShipCity,
+                ShipName = o.ShipName,
+                ShipCountry = o.ShipCountry,
+                ShippedDate = o.ShippedDate,
+                ShipPostalCode = o.ShipPostalCode,
+                ShipRegion = o.ShipRegion,
+                ShipVia = o.ShipVia,
+                CustomerId = o.CustomerId,
+                EmployeeId = o.EmployeeId,
+                OrderId = o.OrderId,
+                Customer = o.Customer
+            }));
+            await _service.AddOrdersAsync(orders);
             try
             {
-                await _context.SaveChangesAsync();
+                await _service.CreateCustomerAsync(customer);
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException();
+            }
+
+            try
+            {
+                await _service.SaveCustomerChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (CustomerExists(customer.CustomerId))
+                if (CustomerExistsAsync(customer.CustomerId).Result)
                 {
                     return Conflict();
                 }
@@ -104,11 +127,11 @@ namespace NorthwindApi.Controllers
                     throw;
                 }
             }
-
             return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
-            
+         
         }
-        */
+        
+
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]
