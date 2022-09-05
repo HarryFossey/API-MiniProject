@@ -30,7 +30,7 @@ public class CustomerService : ICustomerService
 
     public async Task<List<Customer>> GetCustomerListAsync()
     {
-        return await _context.Customers.ToListAsync();
+        return await _context.Customers.Include(x => x.Orders).ToListAsync();
     }
 
     public async Task RemoveCustomerAsync(Customer customer)
