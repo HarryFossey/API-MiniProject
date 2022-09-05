@@ -6,21 +6,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 namespace NorthwindTests;
 
 public partial class CustomerServiceShould
 {
-    private ICustomerService _sut;
+    private CustomerService _sut;
 
-    //happy path
+    
+    
     [Test]
-    public void AListOfCustomers_WhenGetCustomersIsCalled()
+    public void ReturnACustomer_When_GetCustomerByIdAsyncIsCalledWithAValidId()
     {
-        var mockContext = new Mock<NorthwindContext>();
-        var customer = new Customer() { CustomerId = 1}
-        _sut = new CustomerService(mockContext.Object);
+        //_sut.GetCustomerByIdAsync(customer)
+        var result = _customerService.GetCustomerByIdAsync("MANDA");
 
+        Assert.That(result, Is.InstanceOf<Task<Customer>>());
+    }
 
+    [Test]
+    public void ReturnAListofCustomers_When_GetCustomerListAsyncIsCalledWithAValidId()
+    {
+        //_sut.GetCustomerByIdAsync(customer)
+        var result = _customerService.GetCustomerListAsync();
+
+        Assert.That(result, Is.InstanceOf<Task<List<Customer>>>());
     }
 
 }
