@@ -1,4 +1,5 @@
-﻿using NorthwindApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using NorthwindApi.Models;
 
 namespace NorthwindApi.Services;
 
@@ -16,30 +17,35 @@ public class CustomerService : ICustomerService
         _context = context;
     }
 
-    public void CreateCustomer(Customer customer)
+    public async Task CreateCustomerAsync(Customer customer)
     {
-        _context.Customers.Add(customer);
-        _context.SaveChanges();
+        await _context.Customers.AddAsync(customer)!;
+        await _context.SaveChangesAsync();
     }
 
-    public Customer GetCustomerById(string customerId)
+    public async Task<Customer> GetCustomerByIdAsync(string customerId)
     {
-        return _context.Customers.Find(customerId)!;
+        return await _context.Customers.FindAsync(customerId);
     }
 
-    public List<Customer> GetCustomerList()
+    public async Task<List<Customer>> GetCustomerListAsync()
     {
-        return _context.Customers.ToList();
+        return await _context.Customers.ToListAsync();
     }
 
-    public void RemoveCustomer(Customer customer)
+    public async Task RemoveCustomerAsync(Customer customer)
     {
         _context.Customers.Remove(customer);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void SaveCustomerChanges()
+    public async Task<List<Order>> GetOrdersByCustomerIdAsync(string id)
     {
-        _context.SaveChanges();
+        return await _context.Orders.Where(o => o.CustomerId == id).ToListAsync();
+    }
+
+    public async Task SaveCustomerChangesAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace NorthwindTests;
 
-public class CustomerServiceShouldGet
+public partial class CustomerServiceShould
 {
     private ICustomerService _sut;
 

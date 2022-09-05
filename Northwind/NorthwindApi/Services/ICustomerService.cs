@@ -4,9 +4,10 @@ namespace NorthwindApi.Services;
 
 public interface ICustomerService
 {
-    public List<Customer> GetCustomerList();
-    public Customer GetCustomerById(string customerId);
-    public void CreateCustomer(Customer customer);
-    public void RemoveCustomer(Customer customer);
-    public void SaveCustomerChanges();
+    public Task<List<Customer>> GetCustomerListAsync();
+    public Task<Customer> GetCustomerByIdAsync(string customerId);
+    public Task CreateCustomerAsync(Customer customer);
+    public Task RemoveCustomerAsync(Customer customer);
+    public Task<List<Order>> GetOrdersByCustomerIdAsync(string id);
+    public Task SaveCustomerChangesAsync();
 }
