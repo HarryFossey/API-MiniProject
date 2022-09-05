@@ -25,7 +25,7 @@ public class CustomerService : ICustomerService
 
     public async Task<Customer> GetCustomerByIdAsync(string customerId)
     {
-        return await _context.Customers.FindAsync(customerId);
+        return await _context.Customers.Include(x => x.Orders).Where(y => y.CustomerId == customerId).SingleOrDefaultAsync();
     }
 
     public async Task<List<Customer>> GetCustomerListAsync()

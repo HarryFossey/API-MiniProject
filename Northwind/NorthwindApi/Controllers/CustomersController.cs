@@ -51,16 +51,18 @@ namespace NorthwindApi.Controllers
         {
             if (id != customer.CustomerId) return BadRequest();
 
-            var customerById = _service.GetCustomerByIdAsync(id);
+            var customerById = await _service.GetCustomerByIdAsync(id);
 
-            /*
-            //Null-coalescing oeprator returns the value of it's left hand 
-            //operand if it isn't null.
-            supplier.CompanyName = supplierDto.CompanyName ?? supplier.CompanyName;
-            supplier.ContactName = supplierDto.ContactName ?? supplier.ContactName;
-            supplier.ContactTitle = supplierDto.ContactTitle ?? supplier.ContactTitle;
-            supplier.Country = supplierDto.Country ?? supplier.Country;
-            
+            customerById.CompanyName = customer.CompanyName ?? customerById.CompanyName;
+            customerById.ContactName = customer.ContactName ?? customerById.ContactName;
+            customerById.ContactTitle = customer.ContactTitle ?? customerById.ContactTitle;
+            customerById.Address = customer.Address ?? customerById.Address;
+            customerById.City = customer.City ?? customerById.City;
+            customerById.Region = customer.Region ?? customerById.Region;
+            customerById.PostalCode = customer.PostalCode ?? customerById.PostalCode;
+            customerById.Country = customer.Country ?? customerById.Country;
+            customerById.Phone = customer.Phone ?? customerById.Phone;
+            customerById.Fax = customer.Fax ?? customerById.Fax;
 
             try
             {
@@ -68,16 +70,10 @@ namespace NorthwindApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                if (!CustomerExistsAsync(id).Result) return NotFound();
+                else throw;
             }
-            */
+            
             return NoContent();
         }
 
