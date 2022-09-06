@@ -69,10 +69,28 @@ The REST API to the example app is described below.
     Content-Length: length
 
     [body]
+    
+
+## Update a specific Customer
 
 ### Request
 
-## Delete a Thing
+`PUT /api/Customers/{id}`
+
+### Response
+
+    HTTP/1.1 204 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 204 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: length
+
+    [body]
+
+### Request
+
+## Delete a Customer
 
 
 `DELETE /api/Customers/{id}
