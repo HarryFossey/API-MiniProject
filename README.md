@@ -10,15 +10,15 @@
 
 # REST API
 
-The REST API to the example app is described below.
+The REST API to the Customer app is described below.
 
-## Get list of Things
+## Get list of Customers
 
 ### Request
 
 `GET /api/Customers`
 
-    curl -X 'GET' \ 'https://localhost:port/api/Customers' \ -H 'accept: text/plain'
+'GET' \ 'https://localhost:port/api/Customers' 
 
 ### Response
 
@@ -35,9 +35,9 @@ The REST API to the example app is described below.
 
 ### Request
 
-`POST /Customer/`
+`POST /Customers/`
 
-    'Accept: application/json' (https://localhost:7075/api/Customers)
+    'Accept: application/json' (https://localhost:port/api/Customers)
 
 ### Response
 
@@ -69,7 +69,7 @@ The REST API to the example app is described below.
 
 `GET /api/Customers/{id}`
 
-    curl -X 'GET' \ 'https://localhost:port/api/Customers/ALFKI' \ -H 'accept: text/plain'
+    'https://localhost:port/api/Customers/ALFKI'
 
 ### Response
 
@@ -107,8 +107,8 @@ The REST API to the example app is described below.
 
 `DELETE /api/Customers/{id}
 
-    curl -X 'DELETE' \ 'https://localhost:7075/api/Customers/ALFKI' \ -H 'accept: */*'
-
+    'https://localhost:port/api/Customers/{id} 
+    
 ### Response
 
     HTTP/1.1 204 No Content
