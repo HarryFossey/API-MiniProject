@@ -31,11 +31,11 @@ The REST API to the example app is described below.
 
     [body]
 
-## Create a new Thing
+## Create a new Customer
 
 ### Request
 
-`POST /thing/`
+`POST /Customer/`
 
     curl -i -H 'Accept: application/json' -d 'name=Foo&status=new' http://localhost:7000/thing
 
@@ -46,12 +46,12 @@ The REST API to the example app is described below.
     Status: 201 Created
     Connection: close
     Content-Type: application/json
-    Location: /thing/1
+    Location: /customers/1
     Content-Length: 36
 
     {"id":1,"name":"Foo","status":"new"}
 
-## Get a specific Thing
+## Get a specific Customer
 
 ### Request
 
