@@ -60,8 +60,8 @@ The REST API to the example app is described below.
     "country": "Germany",
     "phone": "030-0074321",
     "fax": "030-0076545",
-    "orders":{},
-    "status":"200 Success"}
+    "orders":{}
+    }
 
 ## Get a specific Customer
 
