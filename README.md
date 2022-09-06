@@ -68,7 +68,7 @@ The REST API to the example app is described below.
     Content-Type: application/json
     Content-Length: length
 
-    [doby]
+    [body]
 
 ### Request
 
