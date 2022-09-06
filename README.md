@@ -77,9 +77,7 @@ The REST API to the example app is described below.
 
 `DELETE /api/Customers/{id}
 
-    curl -X 'DELETE' \
-  'https://localhost:7075/api/Customers/ALFKI' \
-  -H 'accept: */*'
+    curl -X 'DELETE' \ 'https://localhost:7075/api/Customers/ALFKI' \ -H 'accept: */*'
 
 ### Response
 
