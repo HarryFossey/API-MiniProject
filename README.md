@@ -18,9 +18,7 @@ The REST API to the example app is described below.
 
 `GET /api/Customers`
 
-    curl -X 'GET' \
-  'https://localhost:port/api/Customers' \
-  -H 'accept: text/plain'
+    curl -X 'GET' \ 'https://localhost:port/api/Customers' \ -H 'accept: text/plain'
 
 ### Response
 
