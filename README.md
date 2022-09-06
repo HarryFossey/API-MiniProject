@@ -37,7 +37,7 @@ The REST API to the example app is described below.
 
 `POST /Customer/`
 
-    curl -i -H 'Accept: application/json' -d 'name=Foo&status=new' http://localhost:7000/thing
+    curl -i -H 'Accept: application/json' -d 'name=Foo&status=new' http://localhost:7000/customers
 
 ### Response
 
