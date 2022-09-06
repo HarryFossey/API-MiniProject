@@ -10,7 +10,7 @@
 
 # REST API
 
-The REST API to the Customer app is described below.
+The REST API for the Customer app is described below.
 
 ## Get list of Customers
 
