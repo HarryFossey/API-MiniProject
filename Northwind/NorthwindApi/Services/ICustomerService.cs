@@ -9,6 +9,7 @@ public interface ICustomerService
     public Task CreateCustomerAsync(Customer customer);
     public Task RemoveCustomerAsync(Customer customer);
     public Task<List<Order>> GetOrdersByCustomerIdAsync(string id);
+    public Task<Order> GetOrderByIdAsync(int id);
     public Task SaveCustomerChangesAsync();
     public Task AddOrdersAsync(IEnumerable<Order> orders);
 }

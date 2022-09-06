@@ -44,6 +44,28 @@ namespace NorthwindApi.Controllers
             return Ok(customer);
         }
 
+        // GET: api/Customers/5/Orders
+        [HttpGet("{id}/Orders")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetCustomerOrders(string id)
+        {
+            var orders = await _service.GetOrdersByCustomerIdAsync(id);
+
+            if (orders == null) return NotFound();
+
+            return Ok(orders);
+        }
+
+        // GET: api/Customers/5/Orders/5
+        [HttpGet("{id}/Orders/{orderId}")]
+        public async Task<ActionResult<Order>> GetCustomerOrderById(string id, int orderId)
+        {
+            var order = await _service.GetOrderByIdAsync(orderId);
+
+            if (order == null) return NotFound();
+
+            return Ok(order);
+        }
+
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

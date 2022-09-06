@@ -44,6 +44,11 @@ public class CustomerService : ICustomerService
         return await _context.Orders.Where(o => o.CustomerId == id).ToListAsync();
     }
 
+    public async Task<Order> GetOrderByIdAsync(int id)
+    {
+        return await _context.Orders.FindAsync(id);
+    }
+
     public async Task SaveCustomerChangesAsync()
     {
         await _context.SaveChangesAsync();
