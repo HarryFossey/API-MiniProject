@@ -37,7 +37,7 @@ The REST API to the example app is described below.
 
 `POST /Customer/`
 
-    'Accept: application/json' -d 'name=Foo&status=new' (https://localhost:7075/api/Customers)
+    'Accept: application/json' (https://localhost:7075/api/Customers)
 
 ### Response
 
@@ -46,10 +46,22 @@ The REST API to the example app is described below.
     Status: 201 Created
     Connection: close
     Content-Type: application/json
-    Location: /customers/1
+    Location: /customers
     Content-Length: 36
 
-    {"id":1,"name":"Foo","status":"new"}
+    {"customerId": "ALFKI",
+    "companyName": "Alfreds Futterkiste",
+    "contactName": "Maria Anders",
+    "contactTitle": "Sales Representative",
+    "address": "Obere Str. 57",
+    "city": "Berlin",
+    "region": null,
+    "postalCode": "12209",
+    "country": "Germany",
+    "phone": "030-0074321",
+    "fax": "030-0076545",
+    "orders":{},
+    "status":"200 Success"}
 
 ## Get a specific Customer
 
