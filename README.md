@@ -13,7 +13,6 @@
 The REST API for the Customer app is described below.
 
 ## Get list of Customers
-
 ### Request
 
 `GET /api/Customers`
@@ -32,7 +31,6 @@ The REST API for the Customer app is described below.
     [body]
 
 ## Create a new Customer
-
 ### Request
 
 `POST /Customers/`
@@ -64,7 +62,6 @@ The REST API for the Customer app is described below.
     }
 
 ## Get a specific Customer
-
 ### Request
 
 `GET /api/Customers/{id}`
@@ -82,9 +79,50 @@ The REST API for the Customer app is described below.
 
     [body]
     
+    
+## Get all orders from Customer
+### Request
+
+`GET /api/Customers/{id}/Orders`
+
+    curl -X 'GET' \ 'https://localhost:7075/api/Customers/{id}/Orders' \ -H 'accept: text/plain'
+
+### Response
+
+    Status: 200 OK
+    [body]
+    
+## Get specific order from Customer
+### Request
+
+`GET /api/Customers/{id}/Orders/{id}`
+
+    curl -X 'GET' \ 'https://localhost:7075/api/Customers/{id}/Orders/{id}' \ -H 'accept: text/plain'
+
+### Response
+
+    Status: 200 OK
+    
+    {
+      "orderId": 10625,
+      "customerId": "ANATR",
+      "employeeId": 3,
+      "orderDate": "1997-08-08T00:00:00",
+      "requiredDate": "1997-09-05T00:00:00",
+      "shippedDate": "1997-08-14T00:00:00",
+      "shipVia": 1,
+      "freight": 43.9,
+      "shipName": "Ana Trujillo Emparedados y helados",
+      "shipAddress": "Avda. de la Constitución 2222",
+      "shipCity": "México D.F.",
+      "shipRegion": null,
+      "shipPostalCode": "05021",
+      "shipCountry": "Mexico",
+      "customer": null
+    }
+    
 
 ## Update a specific Customer
-
 ### Request
 
 `PUT /api/Customers/{id}`
@@ -100,10 +138,8 @@ The REST API for the Customer app is described below.
 
     [body]
 
-### Request
-
 ## Delete a Customer
-
+### Request
 
 `DELETE /api/Customers/{id}
 
