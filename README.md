@@ -18,7 +18,7 @@ The REST API for the Customer app is described below.
 
 `GET /api/Customers`
 
-'GET' \ 'https://localhost:port/api/Customers' 
+    'GET' \ 'https://localhost:port/api/Customers' 
 
 ### Response
 
